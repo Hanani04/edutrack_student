@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student academic performance dashboard with attendance chart, results, and co-curricular achievements.">
+    <title>Dashboard | EduTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="js/script.js"></script>
+    <script>checkAuth();</script>
+</head>
+<body class="app-body dashboard-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-brand"><span class="brand-mark">ET</span> EduTrack</a>
+            <button class="hamburger-toggle" id="burgerIcon" onclick="toggleMenu()" aria-label="Open navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html" class="nav-item active-link">Dashboard</a>
+                <a href="tasks.html" class="nav-item">Tasks</a>
+                <a href="students.html" class="nav-item">Profile & Class</a>
+                <button id="themeBtn" class="theme-toggle-btn icon-toggle" onclick="toggleTheme()" type="button" aria-label="Switch theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+                <a href="#" onclick="logout()" class="nav-item logout-btn">Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main" class="container">
+        <header class="page-title">
+            <h1>Student Performance Summary</h1>
+            <p class="text-muted">Organize Your Academic Journey with results, tasks, attendance, and co-curricular achievements.</p>
+        </header>
+
+        <section class="card-custom countdown-banner floating-panel mb-4" aria-label="Year-end examination countdown">
+            <div class="countdown-flex-wrapper">
+                <div>
+                    <h2 class="countdown-title"><span class="material-symbols-rounded inline-icon">hourglass_top</span> Year-End Examination Countdown</h2>
+                    <p class="countdown-subtitle">Start date: 15 October 2026, 8:00 AM</p>
+                </div>
+                <div id="exam-countdown" class="countdown-timer-display">
+                    <div class="countdown-unit"><span id="cd-days" class="countdown-box">00</span><small class="countdown-label">Days</small></div>
+                    <div class="countdown-unit"><span id="cd-hours" class="countdown-box">00</span><small class="countdown-label">Hours</small></div>
+                    <div class="countdown-unit"><span id="cd-minutes" class="countdown-box">00</span><small class="countdown-label">Minutes</small></div>
+                    <div class="countdown-unit"><span id="cd-seconds" class="countdown-box">00</span><small class="countdown-label">Seconds</small></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-3 mb-4" aria-label="Key student metrics">
+            <article class="card-custom floating-panel accent-blue">
+                <p class="metric-label">Standardized Test 1</p>
+                <p class="stat-number stat-blue">85%</p>
+                <small class="text-muted">Overall average mark</small>
+            </article>
+            <article class="card-custom floating-panel accent-green">
+                <p class="metric-label">Mid-Year Examination</p>
+                <p class="stat-number stat-green">1A+, 3A, 1B+</p>
+                <small class="text-muted">Grade achievement summary</small>
+            </article>
+            <article class="card-custom floating-panel accent-orange">
+                <p class="metric-label">Current Task Status</p>
+                <p class="stat-number stat-orange">75%</p>
+                <div class="progress-container mt-3"><div class="progress-bar" style="width: 75%;"></div></div>
+                <small class="text-muted">15 out of 20 tasks completed</small>
+            </article>
+        </section>
+
+        <section class="grid grid-2 mb-4">
+            <article class="card-custom floating-panel">
+                <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                    <h2 class="mb-0">Results by Subject</h2>
+                    <span class="badge badge-info">KSSM</span>
+                </div>
+                <div class="table-wrap">
+                    <table class="table-custom">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Test</th>
+                                <th>Grade</th>
+                                <th>PPT</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Malay Language</td><td>88</td><td><span class="badge badge-success">A</span></td><td>92</td><td><span class="badge badge-success">A+</span></td></tr>
+                            <tr><td>English Language</td><td>82</td><td><span class="badge badge-success">A</span></td><td>85</td><td><span class="badge badge-success">A</span></td></tr>
+                            <tr><td>Mathematics</td><td>78</td><td><span class="badge badge-warning">B+</span></td><td>80</td><td><span class="badge badge-success">A</span></td></tr>
+                            <tr><td>Science</td><td>70</td><td><span class="badge badge-warning">B</span></td><td>76</td><td><span class="badge badge-warning">B+</span></td></tr>
+                            <tr><td>History</td><td>74</td><td><span class="badge badge-warning">B</span></td><td>83</td><td><span class="badge badge-success">A</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+            <aside class="card-custom floating-panel">
+                <h2>Attendance Trend</h2>
+                <p class="text-muted">Monthly attendance is stable and above the class target.</p>
+                <div class="chart-box">
+                    <canvas id="attendanceChart" aria-label="Attendance trend chart"></canvas>
+                </div>
+            </aside>
+        </section>
+
+        <section class="grid grid-2">
+            <article class="card-custom floating-panel">
+                <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                    <h2 class="mb-0">Co-Curricular Achievements</h2>
+                    <span class="badge badge-success">Active</span>
+                </div>
+                <div class="achievement-list">
+                    <article class="achievement-item">
+                        <span class="badge badge-info">Sports & Games</span>
+                        <h3>MSSD Cross Country Champion</h3>
+                        <p class="text-muted mb-0">District level achievement with a strong discipline record.</p>
+                    </article>
+                    <article class="achievement-item">
+                        <span class="badge badge-info">Clubs & Societies</span>
+                        <h3>STEM Club Vice Chairman</h3>
+                        <p class="text-muted mb-0">Assists teachers in STEM activities and peer mentoring.</p>
+                    </article>
+                    <article class="achievement-item">
+                        <span class="badge badge-info">Uniformed Body</span>
+                        <h3>School Youth Cadet, Corporal Rank</h3>
+                        <p class="text-muted mb-0">Shows leadership and teamwork.</p>
+                    </article>
+                </div>
+            </article>
+            <aside class="card-custom floating-panel mentor-card">
+                <h2>Mentor Recommendation</h2>
+                <p class="text-muted">This week's focus: complete Mathematics Chapter 4 and the Science practical report before Friday.</p>
+                <div class="mini-insight">
+                    <span class="material-symbols-rounded">trending_up</span>
+                    <div><strong>A++ Potential</strong><br><small class="text-muted">Performance is stable; reduce overdue tasks for a stronger record.</small></div>
+                </div>
+                <div class="mini-insight">
+                    <span class="material-symbols-rounded">calendar_month</span>
+                    <div><strong>Next class</strong><br><small class="text-muted">Mathematics, 8:00 AM, Room 2 Amanah.</small></div>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2026 EduTrack. Static IMS566 prototype by Nurul Hanani Binti Hairun'nisak.</small>
+    </footer>
+</body>
+</html>

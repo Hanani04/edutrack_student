@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Homework and study task tracker for EduTrack.">
+    <title>Tasks | EduTrack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="js/script.js"></script>
+    <script>checkAuth();</script>
+</head>
+<body class="app-body">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="dashboard.html" class="nav-brand"><span class="brand-mark">ET</span> EduTrack</a>
+            <button class="hamburger-toggle" id="burgerIcon" onclick="toggleMenu()" aria-label="Open navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="tasks.html" class="nav-item active-link">Tasks</a>
+                <a href="students.html" class="nav-item">Profile & Class</a>
+                <button id="themeBtn" class="theme-toggle-btn icon-toggle" onclick="toggleTheme()" type="button" aria-label="Switch theme">
+                    <span class="material-symbols-rounded">dark_mode</span>
+                </button>
+                <a href="#" onclick="logout()" class="nav-item logout-btn">Log Out</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main" class="container">
+        <header class="page-title">
+            <h1>Homework & Study Tasks</h1>
+            <p class="text-muted">Tick completed tasks, mark tasks that need help, and keep the status in the browser using localStorage.</p>
+        </header>
+
+        <section class="grid task-overview-grid mb-4">
+            <article class="card-custom task-distribution-card">
+                <h2>Monthly Task Progress</h2>
+                <div class="chart-box">
+                    <canvas id="taskProgressChart" aria-label="Completed and pending tasks by subject"></canvas>
+                </div>
+            </article>
+            <article class="card-custom completion-card">
+                <p class="metric-label">Overall completion rate</p>
+                <p class="stat-number stat-green completion-rate" id="taskCompletionRate">75%</p>
+                <div class="progress-container mt-3" aria-label="75 percent complete">
+                    <div class="progress-bar" id="taskCompletionBar" style="width: 75%;"></div>
+                </div>
+                <p class="text-muted mb-0 mt-3" id="taskCompletionText">9 tasks submitted, 3 tasks still pending.</p>
+            </article>
+        </section>
+
+        <section class="card-custom mb-4">
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                <h2 class="mb-0">Current Task List</h2>
+                <span class="badge badge-warning">Needs attention</span>
+            </div>
+            <div class="table-wrap">
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-task-id="math-polygons" data-due="2026-05-25"><td>Workbook Practice Chapter 4: Polygons</td><td>Mathematics</td><td>25 May 2026</td><td>High</td><td><span class="badge badge-warning task-status">Pending</span></td><td><div class="task-actions"><button class="icon-action success" onclick="setTaskStatus('math-polygons','completed')" type="button" aria-label="Mark Mathematics task completed"><span class="material-symbols-rounded">check</span></button><button class="icon-action danger" onclick="setTaskStatus('math-polygons','missed')" type="button" aria-label="Mark Mathematics task missed"><span class="material-symbols-rounded">close</span></button><button class="icon-action neutral" onclick="setTaskStatus('math-polygons','pending')" type="button" aria-label="Reset Mathematics task"><span class="material-symbols-rounded">restart_alt</span></button></div></td></tr>
+                        <tr data-task-id="science-refraction" data-due="2026-05-28"><td>Science Practical Report: Refraction of Light</td><td>Science</td><td>28 May 2026</td><td>High</td><td><span class="badge badge-warning task-status">Pending</span></td><td><div class="task-actions"><button class="icon-action success" onclick="setTaskStatus('science-refraction','completed')" type="button" aria-label="Mark Science task completed"><span class="material-symbols-rounded">check</span></button><button class="icon-action danger" onclick="setTaskStatus('science-refraction','missed')" type="button" aria-label="Mark Science task missed"><span class="material-symbols-rounded">close</span></button><button class="icon-action neutral" onclick="setTaskStatus('science-refraction','pending')" type="button" aria-label="Reset Science task"><span class="material-symbols-rounded">restart_alt</span></button></div></td></tr>
+                        <tr data-task-id="malay-essay" data-due="2026-05-18"><td>Short Essay: Healthy Lifestyle Practices</td><td>Malay Language</td><td>Submitted</td><td>Medium</td><td><span class="badge badge-success task-status">Completed</span></td><td><div class="task-actions"><button class="icon-action success" onclick="setTaskStatus('malay-essay','completed')" type="button" aria-label="Mark Malay Language task completed"><span class="material-symbols-rounded">check</span></button><button class="icon-action danger" onclick="setTaskStatus('malay-essay','missed')" type="button" aria-label="Mark Malay Language task missed"><span class="material-symbols-rounded">close</span></button><button class="icon-action neutral" onclick="setTaskStatus('malay-essay','pending')" type="button" aria-label="Reset Malay Language task"><span class="material-symbols-rounded">restart_alt</span></button></div></td></tr>
+                        <tr data-task-id="english-grammar" data-due="2026-05-20"><td>English Grammar Workbook Exercise 2</td><td>English Language</td><td>Submitted</td><td>Medium</td><td><span class="badge badge-success task-status">Completed</span></td><td><div class="task-actions"><button class="icon-action success" onclick="setTaskStatus('english-grammar','completed')" type="button" aria-label="Mark English task completed"><span class="material-symbols-rounded">check</span></button><button class="icon-action danger" onclick="setTaskStatus('english-grammar','missed')" type="button" aria-label="Mark English task missed"><span class="material-symbols-rounded">close</span></button><button class="icon-action neutral" onclick="setTaskStatus('english-grammar','pending')" type="button" aria-label="Reset English task"><span class="material-symbols-rounded">restart_alt</span></button></div></td></tr>
+                        <tr data-task-id="history-notes" data-due="2026-05-30"><td>History Revision Notes: Independence Leaders</td><td>History</td><td>30 May 2026</td><td>Low</td><td><span class="badge badge-info task-status">In Progress</span></td><td><div class="task-actions"><button class="icon-action success" onclick="setTaskStatus('history-notes','completed')" type="button" aria-label="Mark History task completed"><span class="material-symbols-rounded">check</span></button><button class="icon-action danger" onclick="setTaskStatus('history-notes','missed')" type="button" aria-label="Mark History task missed"><span class="material-symbols-rounded">close</span></button><button class="icon-action neutral" onclick="setTaskStatus('history-notes','pending')" type="button" aria-label="Reset History task"><span class="material-symbols-rounded">restart_alt</span></button></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="task-summary">
+            <article class="task-card">
+                <span class="badge badge-info">Study tip</span>
+                <h3>Focus block recommendation</h3>
+                <p class="text-muted mb-0">Complete Mathematics first because it has the earliest deadline, then prepare the Science report draft.</p>
+            </article>
+            <article class="task-card">
+                <span class="badge badge-success">Teacher note</span>
+                <h3>Good submission pattern</h3>
+                <p class="text-muted mb-0">Submitted language tasks show consistent written work and responsible planning.</p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <small>&copy; 2026 EduTrack. Static IMS566 prototype by Nurul Hanani Binti Hairun'nisak.</small>
+    </footer>
+</body>
+</html>
