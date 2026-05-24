@@ -1,4 +1,12 @@
-/* IMS566 Individual Project - EduTrack */
+/* ==========================================================================
+   IMS566 Individual Project - EduTrack
+   ========================================================================== */
+
+/* 
+   VARIABLE CSS (TEMA CERAH): 
+   Tempat simpan kod warna, bayang (shadow), dan radius secara global. 
+   Senang untuk tukar satu tempat, semua komponen dalam web ikut berubah.
+*/
 :root {
     color-scheme: light;
     --primary: #7c3aed;
@@ -19,6 +27,11 @@
     --container: 1180px;
 }
 
+/* 
+   VARIABLE CSS (TEMA GELAP / DARK MODE): 
+   Aktif apabila aplikasi mengesan sistem bertukar ke tema gelap. 
+   Semua warna latar belakang dipadamkan jadi gelap, warna tulisan jadi putih.
+*/
 [data-theme="dark"] {
     color-scheme: dark;
     --bg: #0f172a;
@@ -30,10 +43,19 @@
     --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 
+/* 
+   GLOBAL RESET: 
+   Memastikan saiz border dan padding dikira sekali dalam lebar kotak 
+   supaya susunan layout tidak pecah atau lari.
+*/
 * {
     box-sizing: border-box;
 }
 
+/* 
+   BODY STYLES: 
+   Tetapan rupa asas untuk seluruh halaman web seperti font dan warna latar belakang.
+*/
 body {
     min-height: 100vh;
     margin: 0;
@@ -43,15 +65,22 @@ body {
     line-height: 1.5;
 }
 
+/* Mengatur halaman utama aplikasi menggunakan flexbox untuk susunan menegak */
 body.app-body {
     display: flex;
     flex-direction: column;
 }
 
+/* Memastikan tulisan pautan (link) mengikut warna tulisan induknya */
 a {
     color: inherit;
 }
 
+/* 
+   SKIP LINK (ACCESSIBILITY): 
+   Sangat bagus untuk mesra OKU. Pengguna keyboard boleh tekan butang 'Tab' 
+   untuk skip menu atas dan terus pergi ke kandungan utama.
+*/
 .skip-link {
     position: absolute;
     left: -999px;
@@ -68,10 +97,14 @@ a {
     left: 12px;
 }
 
+/* 
+   LOGIN PAGE STYLES: 
+   Gaya reka bentuk khusus untuk bahagian luar dan dalam kad log masuk / daftar.
+*/
 .login-body {
     min-height: 100vh;
     display: grid;
-    place-items: center;
+    place-items: center; /* Meletakkan kad login tepat di tengah skrin */
     padding: 24px;
     background: #161129;
 }
@@ -143,6 +176,7 @@ a {
     font-size: 1.1rem;
 }
 
+/* Memberi kesan warna biru/ungu cair pada border kotak input apabila ditekan */
 .form-control:focus {
     outline: 3px solid rgba(15, 118, 110, 0.18);
     border-color: var(--primary);
@@ -160,6 +194,10 @@ a {
     margin: 14px 0 0;
 }
 
+/* 
+   BUTTONS STYLES: 
+   Gaya butang utama (gradient ungu) dan butang sekunder (kelabu lembut).
+*/
 .btn {
     display: inline-flex;
     align-items: center;
@@ -214,6 +252,11 @@ a {
     text-decoration: none;
 }
 
+/* 
+   NAVIGATION BAR (MENU ATAS): 
+   Sistem navigasi utama web. Menggunakan 'position: sticky' supaya menu 
+   sentiasa melekat di atas skrin walaupun pengguna skrol ke bawah.
+*/
 .navbar {
     position: sticky;
     top: 0;
@@ -301,6 +344,7 @@ a {
     color: #991b1b;
 }
 
+/* Menu Hamburger (3 baris) untuk paparan mobile. Di PC ia tersembunyi. */
 .hamburger-toggle {
     display: none;
     width: 42px;
@@ -319,6 +363,11 @@ a {
     background: var(--text);
 }
 
+/* 
+   CONTAINER & DASHBOARD OVERRIDES: 
+   Mengawal kelebaran kawasan kandungan utama dan warna latar belakang 
+   mengikut mod tema aktif (Cerah/Gelap).
+*/
 .container {
     width: min(var(--container), calc(100% - 40px));
     margin: 32px auto;
@@ -351,6 +400,11 @@ a {
     color: #f8fafc;
 }
 
+/* 
+   FLOATING PANELS (KAD INFO UTAMA): 
+   Kad hiasan dengan garisan tebal di sebelah kiri. 
+   Mempunyai kesan pencahayaan linear-gradient yang pudar.
+*/
 .floating-panel {
     position: relative;
     overflow: hidden;
@@ -386,6 +440,7 @@ a {
     color: #e2e8f0;
 }
 
+/* Variasi warna border kiri untuk kad mengikut kategori warna */
 .accent-blue {
     border-left-color: #8b5cf6;
 }
@@ -402,6 +457,7 @@ a {
     margin-bottom: 24px;
 }
 
+/* clamp() digunakan untuk memastikan teks tajuk mengecil secara automatik di telefon */
 .page-title h1,
 .page-title h2 {
     margin: 0 0 8px;
@@ -409,6 +465,11 @@ a {
     letter-spacing: 0;
 }
 
+/* 
+   GRID SYSTEM: 
+   Mengawal susunan kotak secara grid. 
+   grid-3 membahagikan kad kepada 3 lajur sebaris, manakala grid-2 membahagikan susunan tidak sekata (kiri lebar, kanan sempit).
+*/
 .grid {
     display: grid;
     gap: 20px;
@@ -430,6 +491,7 @@ a {
     box-shadow: var(--shadow);
 }
 
+/* Gaya teks metrik nombor statistik yang besar di dashboard */
 .metric-label {
     margin: 0 0 8px;
     color: var(--muted);
@@ -455,6 +517,11 @@ a {
     color: #f59e0b;
 }
 
+/* 
+   COUNTDOWN BANNER: 
+   Banner pengiraan masa peperiksaan (contoh: Hitung detik SPM/Final Exam). 
+   Mempunyai grid 4 kotak kecil untuk Hari, Jam, Minit, dan Saat.
+*/
 .countdown-banner {
     background: linear-gradient(135deg, #7c3aed, #a855f7);
     color: #ffffff;
@@ -504,6 +571,11 @@ a {
     color: rgba(255, 255, 255, 0.78);
 }
 
+/* 
+   CUSTOM TABLES: 
+   Jadual senarai tugasan / markah. Menggunakan overflow-x: auto 
+   pada '.table-wrap' supaya jadual boleh dileret (scroll) ke tepi jika skrin telefon kecil.
+*/
 .table-wrap {
     overflow-x: auto;
 }
@@ -547,10 +619,16 @@ a {
     border-bottom-color: #3b4b63;
 }
 
+/* Mengubah latar baris jadual apabila kursor tetikus melintasi baris tersebut */
 .table-custom tr:hover td {
     background: rgba(15, 118, 110, 0.05);
 }
 
+/* 
+   STATUS BADGES & PROGRESS BAR: 
+   Lencana status berwarna (cth: Hijau untuk Selesai, Merah untuk Gagal) 
+   dan bar kemajuan aktiviti akademik.
+*/
 .badge {
     display: inline-flex;
     align-items: center;
@@ -600,6 +678,10 @@ a {
     height: 210px;
 }
 
+/* 
+   LISTS & LIST ITEMS: 
+   Susunan untuk komponen pencapaian gred pelajar dan ringkasan kad mini tugasan.
+*/
 .achievement-list,
 .task-summary {
     display: grid;
@@ -665,6 +747,11 @@ a {
     letter-spacing: 0;
 }
 
+/* 
+   TASK ACTIONS: 
+   Mengawal butang berikon bulat untuk mengesahkan atau memadam tugasan. 
+   Menyediakan fungsi coretan teks (.task-row-completed) apabila kerja sudah siap.
+*/
 .task-actions {
     display: flex;
     gap: 8px;
@@ -706,6 +793,11 @@ a {
     background: rgba(220, 38, 38, 0.08);
 }
 
+/* 
+   SUBJECT: 
+   warna khas mengikut subjek sekolah 
+   (cth: Matematik - ungu, Sains - hijau, BM - kuning, Sejarah - merah).
+*/
 .subject-chip {
     display: inline-flex;
     min-height: 30px;
@@ -752,6 +844,10 @@ a {
     color: #5b21b6;
 }
 
+/* 
+   JADUAL WAKTU KELAS: 
+   'position: sticky' pada '.day-label' membolehkan nama hari kekal kelihatan di kiri semasa diskrol.
+*/
 .timetable-showcase-card {
     overflow: hidden;
 }
@@ -866,6 +962,11 @@ a {
     color: #ffffff;
 }
 
+/* 
+   CALENDAR WIDGET: 
+   Gaya kalendar interaktif untuk melihat tarikh aktiviti bulanan. 
+   '.calendar-grid' disusun menggunakan 7 lajur (mewakili Ahad hingga Sabtu).
+*/
 .calendar-widget {
     display: grid;
     align-content: start;
@@ -981,6 +1082,11 @@ a {
     font-size: 1rem;
 }
 
+/* 
+   USER PROFILE SECTION: 
+   Menyediakan susunan kad profil pelajar termasuk gambar berbentuk bulatan penuh 
+   ('.avatar-container') dan maklumat peribadi dalam bentuk grid 3 lajur.
+*/
 .profile-header {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -1044,6 +1150,7 @@ a {
     gap: 14px;
 }
 
+/* FOOTER SECTION: Bahagian paling bawah aplikasi */
 footer {
     margin-top: auto;
     padding: 24px 20px;
@@ -1053,6 +1160,11 @@ footer {
     border-top: 1px solid var(--border);
 }
 
+/* 
+   UTILITY CLASSES: 
+   Kelas bantuan pantas bersaiz kecil untuk mengurus jarak (margin/gap) dan susunan flexbox 
+   tanpa perlu membina kelas baru di CSS (mirip konsep Tailwind CSS).
+*/
 .d-flex {
     display: flex;
 }
@@ -1101,6 +1213,14 @@ footer {
     text-align: center;
 }
 
+/* 
+   MEDIA QUERIES (RESPONSIVE DESIGN): 
+   Mengawal susunan elemen paparan mengikut saiz peranti pengguna.
+*/
+
+/* APABILA SKRIN KURANG DARIPADA 900PX (TABLET): 
+   Mengubah susunan kad multi-kolum menjadi satu kolum menegak ke bawah.
+*/
 @media (max-width: 900px) {
     .login-shell,
     .grid-2,
@@ -1125,6 +1245,10 @@ footer {
     }
 }
 
+/* APABILA SKRIN KURANG DARIPADA 720PX (SMARTPHONE): 
+   Mengaktifkan menu hamburger mudah alih, menyembunyikan link navigasi asal 
+   (melainkan ditambahkan class '.open' guna JavaScript), serta mengecilkan saiz kotak jadual/kad log masuk.
+*/
 @media (max-width: 720px) {
     .hamburger-toggle {
         display: block;
